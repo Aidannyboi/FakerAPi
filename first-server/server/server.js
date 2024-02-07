@@ -1,15 +1,27 @@
 import express from "express";
 
+import {faker} from "@faker-js/faker";
+
 const app = express();
 
 const port = 8000;
 
-const users = [
-    {firstName: "Reimu", lastName : "Hakurei", id: 123456},
-    {firstName: "Temu", lastName : "Hakurei", id: 1234567},
-    {firstName: "Pemu", lastName : "Hakurei", id: 1234568}
+const createUser = () =>{
+    const newUser = {
 
-]
+        password : faker.internet.password(),
+        email : faker.internet.email(),
+        phoneNumber : faker.phone.number(),
+        lastName : faker.person.firstName(),
+        firstName : faker.person.lastName(),
+        _id : Math.floor(Math.random() * 1000000).toString()
+
+    }
+}
+
+const createComp = () => {
+    
+}
 
 app.use( express.json() );
 

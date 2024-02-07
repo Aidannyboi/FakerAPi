@@ -14,28 +14,41 @@ const createUser = () =>{
         phoneNumber : faker.phone.number(),
         lastName : faker.person.firstName(),
         firstName : faker.person.lastName(),
-        _id : Math.floor(Math.random() * 1000000).toString()
+        _id : faker.string.uuid()
 
     }
+
+    return newUser;
 }
 
 const createComp = () => {
-    
+    const newCompany = {
+        name : faker.company.name(),
+        address : {
+            street: faker.location.street(),
+            city: faker.location.city(),
+            state: faker.location.state(),
+            zipCode : faker.location.zipCode(),
+            country : faker.location.country()
+
+        }
+    }
+
+    return newCompany;
 }
 
 app.use( express.json() );
 
-app.get("/api/users", (req, res) => {
-    res.json(users);
+app.get("/api/users/new", (req, res) => {
+    res.json(createUser());
 })
 
-app.post("/api/users", (req, res) => {
-    console.log(req.body);
+app.get("/api/company/new", (req, res) => {
+    res.json(createComp());
+})
 
-    users.push(req.body);
-
-    res.json( users );
-
-});
+app.get("/api/user/company", (req, res) => {
+    res.json(createComp(), createUser());
+})
 
 app.listen(port, () => console.log('Listening on port: ${port}'));

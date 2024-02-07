@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 
 import {faker} from "@faker-js/faker";
 
@@ -48,7 +48,14 @@ app.get("/api/company/new", (req, res) => {
 })
 
 app.get("/api/user/company", (req, res) => {
-    res.json(createComp(), createUser());
+
+    let response = {
+        user : createUser(),
+        company : createComp()
+    }
+    
+    res.json(response);
+
 })
 
 app.listen(port, () => console.log('Listening on port: ${port}'));
